@@ -196,6 +196,7 @@ namespace HackOnNet.Modules
                 //Sets prefixcommand inside of OnNetTerminal.cs so that when you press the login button it asks for a username and password and does login (user) (pass) instead of using (user) and (pass) as a commmand.
                 //You can prob use prefixcommand for more then just this.
                 userScreen.terminal.currentLine = "";
+                userScreen.terminal.writeLine("(Username) (Password)");
                 userScreen.terminal.prefixcommand = "login";
                 Hacknet.Gui.TextBox.cursorPosition = 0;
                 Hacknet.Gui.TextBox.textDrawOffsetPosition = 0;
