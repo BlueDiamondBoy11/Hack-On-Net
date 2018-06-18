@@ -414,8 +414,20 @@ namespace HackOnNet.Screens
             }
             else if(command[0] == "login")
             {
-                activeSession.privilege = int.Parse(command[1]);
-                activeSession.accountName = command[2];
+                if (command[1] == "prefixcommand")
+                {
+                    this.terminal.writeLine("(Username) (Password)");
+                    this.terminal.currentLine = "";
+                    this.terminal.prefixcommand = "login";
+                    Hacknet.Gui.TextBox.cursorPosition = 0;
+                    Hacknet.Gui.TextBox.textDrawOffsetPosition = 0;
+                    this.terminal.executionPreventionIsInteruptable = false;
+                }
+                else
+                {
+                    activeSession.privilege = int.Parse(command[1]);
+                    activeSession.accountName = command[2];
+                }
             }
             else if(command[0] == "state")
             {

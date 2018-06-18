@@ -329,7 +329,8 @@ namespace HackLinks_Server.Computers.Processes
         {
             if (command.Length < 2)
             {
-                process.Print("Usage : login [username] [password]");
+                process.computer.Kernel.Login(process, "", "");
+               //process.Print("Usage : login [username] [password]");
                 return true;
             }
             var args = command[1].Split(' ');

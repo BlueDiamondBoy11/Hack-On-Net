@@ -43,15 +43,25 @@ namespace HackLinks_Server.Computers
         public void Login(CommandProcess process, string username, string password)
         {
             GameClient client = GetClient(process);
-            Credentials credentials = node.Login(GetClient(process), username, password);
-            if (credentials != null)
+            if (username == "" && password == "")
             {
-                client.Login(node, credentials);
-                client.Send(NetUtil.PacketType.MESSG, "Logged as : " + username);
-                node.Log(Log.LogEvents.Login, node.logs.Count + 1 + " " + client.homeComputer.ip + " logged in as " + username, client.activeSession.sessionId, client.homeComputer.ip);
-            } else
+                //client.Send(NetUtil.PacketType.MESSG, "(Username) (Password)");
+                client.Send(NetUtil.PacketType.KERNL, "login", "prefixcommand");
+
+            }
+            else
             {
-                client.Send(NetUtil.PacketType.MESSG, "Wrong identificants.");
+                Credentials credentials = node.Login(GetClient(process), username, password);
+                if (credentials != null)
+                {
+                    client.Login(node, credentials);
+                    client.Send(NetUtil.PacketType.MESSG, "Logged as : " + username);
+                    node.Log(Log.LogEvents.Login, node.logs.Count + 1 + " " + client.homeComputer.ip + " logged in as " + username, client.activeSession.sessionId, client.homeComputer.ip);
+                }
+                else
+                {
+                    client.Send(NetUtil.PacketType.MESSG, "Wrong identificants.");
+                }
             }
         }
 
